@@ -1,0 +1,51 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 700px;
+
+  background-image: url("/img/VN-flag.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.hero__title {
+  margin: 0;
+  padding: 20px;
+
+  color: white;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  font-style: normal;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.history-container {
+  display: grid;
+  grid-template-columns: minmax(220px, 20%) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.history-sidebar {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.history-content {
+  min-width: 0;
+}

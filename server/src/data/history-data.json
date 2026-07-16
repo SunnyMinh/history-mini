@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "name": "Dựng nước",
+    "time_label": null,
+    "events": [
+      {
+        "id": 1,
+        "name": "Thời kỳ Văn Lang",
+        "time_label": null,
+        "image_url": "/uploads/events/van-lang.jpg",
+        "description": "Do Hùng Vương đứng đầu, đóng đô tại Phong Châu (Phú Thọ ngày nay). Đây là nhà nước sơ khai đầu tiên, đánh dấu bước chuyển mình từ thị tộc sang xã hội có giai cấp và quản lý nhà nước. Văn Lang là một quốc gia nông nghiệp, dựa vào sản xuất nông nghiệp và thủ công nghiệp."
+      },
+      {
+        "id": 2,
+        "name": "Thời kỳ Âu Lạc",
+        "time_label": null,
+        "image_url": "/uploads/events/au-lac.jpg",
+        "description": "Do An Dương Vương đứng đầu, đóng đô tại Cổ Loa (Hà Nội ngày nay). Đây là thời kỳ phát triển tiếp theo của Văn Lang, với nhiều thành tựu trong nông nghiệp, thủ công nghiệp và thương mại."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Thời kỳ Bắc thuộc",
+    "time_label": null,
+    "events": [
+      {
+        "id": 3,
+        "name": "Nhà Hán thôn tính Nam Việt",
+        "time_label": "111 TCN",
+        "image_url": "/uploads/events/thoi-ky-bac-thuoc.png",
+        "description": "Hán Vũ Đế mang quân tiêu diệt nhà Triệu, thôn tính Nam Việt. Sự kiện này đánh dấu sự kết thúc của một quốc gia độc lập và chính thức mở ra thời kỳ Bắc thuộc lần thứ nhất, kéo dài cho đến khi bùng nổ cuộc khởi nghĩa Hai Bà Trưng vào năm 40."
+      },
+      {
+        "id": 4,
+        "name": "Khởi nghĩa Hai Bà Trưng",
+        "time_label": "40–43",
+        "image_url": "/uploads/events/hai-ba-trung.jpg",
+        "description": "Một cuộc khởi nghĩa do Hai Bà Trưng lãnh đạo đã nổ ra ở quận Giao Chỉ, tiếp theo sau đó là các quận Cửu Chân, Nhật Nam, Hợp Phố và các địa phương khác của vùng Lĩnh Nam (mà theo cổ sử Việt ghi nhận là có tất cả 65 thành trì) hưởng ứng trong năm 40. Sau đó, nhà Hán phái tướng Mã Viện sang đàn áp cuộc khởi nghĩa này. Sau 3 năm giành độc lập, cuộc khởi nghĩa bị tướng Mã Viện đàn áp. Do bị cô lập và quân đội chưa tổ chức hoàn thiện nên Hai Bà Trưng không đủ sức chống cự lại quân do Mã Viện chỉ huy. Hai Bà Trưng đã tự vẫn trên dòng sông Hát để giữ vẹn khí tiết."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Thời kỳ tự chủ",
+    "time_label": "905–939",
+    "events": [
+      {
+        "id": 5,
+        "name": "Họ Khúc",
+        "time_label": "905–923 hoặc 930",
+        "image_url": "/uploads/events/ho-khuc.jpg",
+        "description": "Năm 905, Khúc Thừa Dụ đã xây dựng chính quyền tự chủ của người Việt nhân khi nhà Đường suy yếu, đặt nền móng cho nền độc lập của Việt Nam."
+      },
+      {
+        "id": 6,
+        "name": "Trận Bạch Đằng",
+        "time_label": "938",
+        "image_url": "/uploads/events/bach-dang.jpg",
+        "description": "Trận sông Bạch Đằng năm 938 là một trận đánh giữa quân dân Tĩnh Hải quân (vào thời đó, Việt Nam chưa có quốc hiệu chính thức) do Ngô Quyền lãnh đạo đánh với quân Nam Hán trên sông Bạch Đằng. Kết quả là người Việt giành thắng lợi lớn nhờ kế sách cắm cọc nhọn dưới lòng sông Bạch Đằng của Ngô Quyền. Trước sự chiến đấu dũng mãnh của người Việt, quá nửa quân Nam Hán chết đuối, hoàng tử Nam Hán là Lưu Hoằng Tháo cũng tử trận. Đây là một trận đánh quan trọng trong lịch sử Việt Nam. Nó đánh dấu cho việc chấm dứt hơn 1000 năm Bắc thuộc của Việt Nam, nối lại quốc thống cho người Việt."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Cận đại",
+    "time_label": null,
+    "events": [
+      {
+        "id": 7,
+        "name": "Bắc thuộc lần thứ tư",
+        "time_label": "1407–1427",
+        "image_url": "/uploads/events/bac-thuoc-lan-4.jpg",
+        "description": "Năm 1407, nhà Minh xâm lược và thiết lập chế độ cai trị trực tiếp tại Đại Việt, đánh dấu lần Bắc thuộc thứ 4. Thời kỳ này kéo dài cho đến năm 1427, khi Lê Lợi lãnh đạo cuộc khởi nghĩa Lam Sơn thành công, giành lại độc lập cho đất nước."
+      },
+      {
+        "id": 8,
+        "name": "Trịnh – Nguyễn phân tranh",
+        "time_label": "1627–1672",
+        "image_url": "/uploads/events/trinh-nguyen-phan-tranh.png",
+        "description": "Trịnh – Nguyễn phân tranh là cuộc chiến tranh giữa hai thế lực phong kiến Trịnh và Nguyễn ở Đàng Ngoài và Đàng Trong, kéo dài từ năm 1627 đến năm 1672. Cuộc chiến này đã gây ra nhiều biến động lớn trong lịch sử Việt Nam, dẫn đến sự phân chia lãnh thổ và ảnh hưởng sâu rộng đến đời sống xã hội."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Hiện đại",
+    "time_label": null,
+    "events": [
+      {
+        "id": 9,
+        "name": "Thời kỳ Pháp thuộc",
+        "time_label": "1858–1945",
+        "image_url": "/uploads/events/chiem-da-nang.webp",
+        "description": "Ngày 31 tháng 8 năm 1858, Hải quân Pháp đổ bộ tấn công vào cảng Đà Nẵng và sau đó rút vào xâm chiếm Sài Gòn. Tháng 6 năm 1862, Vua Tự Đức ký hiệp ước nhượng ba tỉnh miền Đông cho Pháp. Năm 1867, Pháp chiếm nốt ba tỉnh miền Tây kế tiếp để tạo thành một lãnh thổ thuộc địa Nam Kỳ (Cochinchine). Sau khi củng cố vị trí vững chắc ở Nam Kỳ, từ năm 1873 đến năm 1886, Pháp xâm chiếm nốt những phần còn lại của Việt Nam qua những cuộc chiến phức tạp ở Bắc Kỳ. Miền Bắc khi đó rất hỗn độn do những mối bất hòa giữa người Việt và người Hoa lưu vong. Chính quyền Việt Nam không thể kiểm soát nổi mối bất hòa này. Cả Trung Hoa và Pháp đều coi khu vực này thuộc tầm ảnh hưởng của mình và gửi quân đến đó, nhưng cuối cùng thì người Pháp đã chiến thắng."
+      },
+      {
+        "id": 10,
+        "name": "Bác Hồ đọc Tuyên ngôn Độc lập",
+        "time_label": "1945",
+        "image_url": "/uploads/events/bac-ho-doc-tuyen-ngon.jpg",
+        "description": "Ngày 2 tháng 9 năm 1945, tại quảng trường Ba Đình, Hà Nội, Bác Hồ đã đọc bản Tuyên ngôn độc lập, khai sinh ra nước Việt Nam Dân chủ Cộng hòa. Sự kiện này đánh dấu mốc son lịch sử quan trọng, chấm dứt thời kỳ thực dân Pháp và mở ra kỷ nguyên độc lập cho dân tộc Việt Nam."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Đương đại",
+    "time_label": null,
+    "events": [
+      {
+        "id": 11,
+        "name": "Tham gia Cộng đồng Kinh tế ASEAN",
+        "time_label": "2015",
+        "image_url": "/uploads/events/asean.jpg",
+        "description": "Ngày 31 tháng 12 năm 2015, Việt Nam chính thức tham gia thành lập Cộng đồng Kinh tế ASEAN – ASEAN Economic Community, viết tắt AEC, gồm 10 quốc gia thành viên. AEC sẽ là cơ hội quý báu để Việt Nam đẩy mạnh xuất khẩu, thu hút đầu tư nước ngoài, nhanh chóng bắt nhịp với xu thế và trình độ phát triển kinh tế của khu vực và thế giới. Tuy nhiên, bên cạnh những thuận lợi lớn, AEC ra đời, các doanh nghiệp Việt Nam cũng sẽ phải đối mặt với nhiều thách thức. Việc cạnh tranh về dịch vụ đầu tư của các nước ASEAN sẽ dẫn đến một số ngành, doanh nghiệp phải thu hẹp sản xuất, thậm chí rút khỏi thị trường. Các nước sẽ mở rộng thị trường xuất khẩu cho hàng hóa của Việt Nam nhưng đồng thời Việt Nam cũng phải mở cửa cho hàng hóa cạnh tranh của các nước trong ASEAN."
+      },
+      {
+        "id": 12,
+        "name": "Kỷ nguyên vươn mình",
+        "time_label": "2024–nay",
+        "image_url": "/uploads/events/ky-nguyen-vuon-minh.jpg",
+        "description": "Kỷ nguyên vươn mình (2024 - nay) đánh dấu sự phát triển mạnh mẽ của Việt Nam trên nhiều lĩnh vực, từ kinh tế, văn hóa đến xã hội. Đây là thời kỳ mà Việt Nam không ngừng mở rộng quan hệ quốc tế, thu hút đầu tư và nâng cao vị thế trên trường quốc tế."
+      }
+    ]
+  }
+]
