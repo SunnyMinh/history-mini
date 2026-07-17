@@ -4,11 +4,6 @@ const {
 } = require("../models");
 
 
-// ==========================================
-// GET ALL PERIODS
-// GET /api/periods
-// ==========================================
-
 const getAllPeriods = async (req, res) => {
   try {
     const periods = await Period.findAll({
@@ -50,12 +45,6 @@ const getAllPeriods = async (req, res) => {
 };
 
 
-
-// ==========================================
-// CREATE PERIOD
-// POST /api/periods
-// ==========================================
-
 const createPeriod = async (req, res) => {
   try {
     const {
@@ -63,8 +52,6 @@ const createPeriod = async (req, res) => {
       time_label,
     } = req.body;
 
-
-    // Kiểm tra dữ liệu bắt buộc
     if (!period_name) {
       return res.status(400).json({
         success: false,
@@ -72,14 +59,11 @@ const createPeriod = async (req, res) => {
       });
     }
 
-
-    // Tạo period mới
     const period = await Period.create({
       period_name: period_name,
 
       time_label: time_label,
 
-      // Lấy userId từ JWT
       created_by: req.user.userId,
     });
 
@@ -103,14 +87,8 @@ const createPeriod = async (req, res) => {
   }
 };
 
-// ==========================================
-// GET PERIOD BY ID
-// GET /api/periods/:id
-// ==========================================
-
 const getPeriodById = async (req, res) => {
   try {
-    // Lấy id trên URL
     const { id } = req.params;
 
     const period = await Period.findByPk(id, {
@@ -126,8 +104,6 @@ const getPeriodById = async (req, res) => {
       ],
     });
 
-
-    // Không tìm thấy period
     if (!period) {
       return res.status(404).json({
         success: false,
@@ -169,12 +145,8 @@ const updatePeriod = async (req, res) => {
       time_label,
     } = req.body;
 
-
-    // 1. Tìm period
     const period = await Period.findByPk(id);
 
-
-    // 2. Không tìm thấy
     if (!period) {
       return res.status(404).json({
         success: false,
@@ -183,7 +155,6 @@ const updatePeriod = async (req, res) => {
     }
 
 
-    // 3. Không gửi dữ liệu nào để sửa
     if (
       period_name === undefined &&
       time_label === undefined
@@ -195,7 +166,6 @@ const updatePeriod = async (req, res) => {
     }
 
 
-    // 4. Nếu có period_name thì cập nhật
     if (period_name !== undefined) {
       if (!period_name.trim()) {
         return res.status(400).json({
@@ -208,13 +178,11 @@ const updatePeriod = async (req, res) => {
     }
 
 
-    // 5. Nếu có time_label thì cập nhật
     if (time_label !== undefined) {
       period.time_label = time_label;
     }
 
 
-    // 6. Lưu xuống PostgreSQL
     await period.save();
 
 
@@ -237,21 +205,14 @@ const updatePeriod = async (req, res) => {
   }
 };
 
-// ==========================================
-// DELETE PERIOD
-// DELETE /api/periods/:id
-// ==========================================
 
 const deletePeriod = async (req, res) => {
   try {
     const { id } = req.params;
 
-
-    // 1. Tìm period
     const period = await Period.findByPk(id);
 
 
-    // 2. Không tìm thấy
     if (!period) {
       return res.status(404).json({
         success: false,
@@ -260,7 +221,6 @@ const deletePeriod = async (req, res) => {
     }
 
 
-    // 3. Xóa
     await period.destroy();
 
 
@@ -276,7 +236,6 @@ const deletePeriod = async (req, res) => {
     );
 
 
-    // Period có Event và FK không cho xóa
     if (
       error.name ===
       "SequelizeForeignKeyConstraintError"

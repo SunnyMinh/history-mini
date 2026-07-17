@@ -4,12 +4,6 @@ const {
   User,
 } = require("../models");
 
-
-// ==========================================
-// GET ALL EVENTS
-// GET /api/events
-// ==========================================
-
 const getAllEvents = async (req, res) => {
   try {
     const events = await Event.findAll({
@@ -23,7 +17,6 @@ const getAllEvents = async (req, res) => {
             "time_label",
           ],
         },
-
         {
           model: User,
           as: "creator",
@@ -33,19 +26,16 @@ const getAllEvents = async (req, res) => {
           ],
         },
       ],
-
       order: [
         ["id", "ASC"],
       ],
     });
-
 
     return res.status(200).json({
       success: true,
       message: "Lấy danh sách event thành công",
       data: events,
     });
-
   } catch (error) {
     console.error(
       "Get all events error:",
@@ -59,17 +49,9 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// GET EVENT BY ID
-// GET /api/events/:id
-// ==========================================
-
 const getEventById = async (req, res) => {
   try {
     const { id } = req.params;
-
 
     const event = await Event.findByPk(id, {
       include: [
@@ -82,7 +64,6 @@ const getEventById = async (req, res) => {
             "time_label",
           ],
         },
-
         {
           model: User,
           as: "creator",
@@ -94,7 +75,6 @@ const getEventById = async (req, res) => {
       ],
     });
 
-
     if (!event) {
       return res.status(404).json({
         success: false,
@@ -102,13 +82,11 @@ const getEventById = async (req, res) => {
       });
     }
 
-
     return res.status(200).json({
       success: true,
       message: "Lấy event thành công",
       data: event,
     });
-
   } catch (error) {
     console.error(
       "Get event by id error:",
@@ -122,13 +100,6 @@ const getEventById = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// CREATE EVENT
-// POST /api/events
-// ==========================================
-
 const createEvent = async (req, res) => {
   try {
     const {
@@ -139,8 +110,6 @@ const createEvent = async (req, res) => {
       image_url,
     } = req.body;
 
-
-    // Kiểm tra dữ liệu bắt buộc
     if (!period_id || !event_name) {
       return res.status(400).json({
         success: false,
@@ -149,12 +118,9 @@ const createEvent = async (req, res) => {
       });
     }
 
-
-    // Kiểm tra Period có tồn tại không
     const period = await Period.findByPk(
       period_id
     );
-
 
     if (!period) {
       return res.status(404).json({
@@ -163,8 +129,6 @@ const createEvent = async (req, res) => {
       });
     }
 
-
-    // Tạo event
     const event = await Event.create({
       period_id,
       event_name,
@@ -174,13 +138,11 @@ const createEvent = async (req, res) => {
       image_url,
     });
 
-
     return res.status(201).json({
       success: true,
       message: "Tạo event thành công",
       data: event,
     });
-
   } catch (error) {
     console.error(
       "Create event error:",
@@ -194,13 +156,6 @@ const createEvent = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// UPDATE EVENT
-// PUT /api/events/:id
-// ==========================================
-
 const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
@@ -213,10 +168,7 @@ const updateEvent = async (req, res) => {
       image_url,
     } = req.body;
 
-
-    // Tìm event
     const event = await Event.findByPk(id);
-
 
     if (!event) {
       return res.status(404).json({
@@ -225,8 +177,6 @@ const updateEvent = async (req, res) => {
       });
     }
 
-
-    // Không gửi dữ liệu nào
     if (
       period_id === undefined &&
       event_name === undefined &&
@@ -240,13 +190,10 @@ const updateEvent = async (req, res) => {
       });
     }
 
-
-    // Nếu muốn đổi period
     if (period_id !== undefined) {
       const period = await Period.findByPk(
         period_id
       );
-
 
       if (!period) {
         return res.status(404).json({
@@ -255,12 +202,9 @@ const updateEvent = async (req, res) => {
         });
       }
 
-
       event.period_id = period_id;
     }
 
-
-    // Nếu sửa event_name
     if (event_name !== undefined) {
       if (!event_name.trim()) {
         return res.status(400).json({
@@ -273,32 +217,25 @@ const updateEvent = async (req, res) => {
       event.event_name = event_name;
     }
 
-
-    // Các field còn lại
     if (time_label !== undefined) {
       event.time_label = time_label;
     }
-
 
     if (description !== undefined) {
       event.description = description;
     }
 
-
     if (image_url !== undefined) {
       event.image_url = image_url;
     }
 
-
     await event.save();
-
 
     return res.status(200).json({
       success: true,
       message: "Cập nhật event thành công",
       data: event,
     });
-
   } catch (error) {
     console.error(
       "Update event error:",
@@ -312,20 +249,11 @@ const updateEvent = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// DELETE EVENT
-// DELETE /api/events/:id
-// ==========================================
-
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
 
-
     const event = await Event.findByPk(id);
-
 
     if (!event) {
       return res.status(404).json({
@@ -334,15 +262,12 @@ const deleteEvent = async (req, res) => {
       });
     }
 
-
     await event.destroy();
-
 
     return res.status(200).json({
       success: true,
       message: "Xóa event thành công",
     });
-
   } catch (error) {
     console.error(
       "Delete event error:",
@@ -356,25 +281,13 @@ const deleteEvent = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// GET EVENTS BY PERIOD
-// GET /api/periods/:periodId/events
-// ==========================================
-
 const getEventsByPeriod = async (req, res) => {
   try {
-    const {
-      periodId,
-    } = req.params;
+    const { periodId } = req.params;
 
-
-    // Kiểm tra period tồn tại
     const period = await Period.findByPk(
       periodId
     );
-
 
     if (!period) {
       return res.status(404).json({
@@ -383,12 +296,10 @@ const getEventsByPeriod = async (req, res) => {
       });
     }
 
-
     const events = await Event.findAll({
       where: {
         period_id: periodId,
       },
-
       include: [
         {
           model: User,
@@ -399,29 +310,24 @@ const getEventsByPeriod = async (req, res) => {
           ],
         },
       ],
-
       order: [
         ["id", "ASC"],
       ],
     });
 
-
     return res.status(200).json({
       success: true,
       message:
         "Lấy danh sách event của period thành công",
-
       data: {
         period: {
           id: period.id,
           period_name: period.period_name,
           time_label: period.time_label,
         },
-
         events,
       },
     });
-
   } catch (error) {
     console.error(
       "Get events by period error:",
@@ -434,8 +340,6 @@ const getEventsByPeriod = async (req, res) => {
     });
   }
 };
-
-
 
 module.exports = {
   getAllEvents,

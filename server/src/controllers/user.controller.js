@@ -7,13 +7,6 @@ const {
   UserRole,
 } = require("../models");
 
-
-// ==========================================
-// GET ALL USERS
-// GET /api/users
-// Admin only
-// ==========================================
-
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
@@ -63,13 +56,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// GET USER BY ID
-// GET /api/users/:id
-// Admin only
-// ==========================================
 
 const getUserById = async (req, res) => {
   try {
@@ -127,14 +113,6 @@ const getUserById = async (req, res) => {
   }
 };
 
-
-
-// ==========================================
-// CREATE USER
-// POST /api/users
-// Admin only
-// ==========================================
-
 const createUser = async (req, res) => {
   try {
     const {
@@ -144,8 +122,6 @@ const createUser = async (req, res) => {
       role_name,
     } = req.body;
 
-
-    // 1. Kiểm tra dữ liệu bắt buộc
     if (
       !username ||
       !password ||
@@ -158,8 +134,6 @@ const createUser = async (req, res) => {
       });
     }
 
-
-    // 2. Kiểm tra username tồn tại
     const existingUser = await User.findOne({
       where: {
         username,
@@ -174,8 +148,6 @@ const createUser = async (req, res) => {
       });
     }
 
-
-    // 3. Kiểm tra role
     const role = await Role.findOne({
       where: {
         role_name,
@@ -190,16 +162,11 @@ const createUser = async (req, res) => {
       });
     }
 
-
-    // 4. Hash password
     const hashedPassword = await bcrypt.hash(
       password,
       10
     );
 
-
-    // 5. Transaction:
-    // tạo user + gán role cùng nhau
     const result = await sequelize.transaction(
       async (transaction) => {
 
@@ -231,7 +198,6 @@ const createUser = async (req, res) => {
     );
 
 
-    // 6. Query lại user cùng role
     const createdUser = await User.findByPk(
       result.id,
       {
