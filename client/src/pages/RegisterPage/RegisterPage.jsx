@@ -181,9 +181,9 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
         <button
             type="button"
             onClick={onGoToLogin}
->
+        >
         Quay lại đăng nhập
-    </button>
+        </button>
       </form>
     </main>
   );

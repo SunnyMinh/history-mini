@@ -37,16 +37,4 @@ router.get(
   getMe
 );
 
-router.get(
-  "/admin-test",
-  authenticate,
-  requireAdmin,
-  (req, res) => {
-    return res.status(200).json({
-      success: true,
-      message: "Bạn có quyền Admin",
-    });
-  }
-);
-
 module.exports = router;
