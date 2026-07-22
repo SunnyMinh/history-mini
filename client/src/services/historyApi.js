@@ -1,4 +1,4 @@
-import apiClient from "./apiClient";
+import apiClient from "./axiosInstance";
 
 export function getPeriods() {
   return apiClient.get("/periods");

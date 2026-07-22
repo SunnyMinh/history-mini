@@ -1,4 +1,4 @@
-import apiClient from "./apiClient";
+import apiClient from "./axiosInstance";
 
 export function registerUser(
   username,
@@ -26,8 +26,4 @@ export function loginUser(
       password,
     }
   );
-}
-
-export function getCurrentUser() {
-  return apiClient.get("/auth/me");
 }
