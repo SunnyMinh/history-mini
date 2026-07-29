@@ -42,15 +42,6 @@ router.get(
   getPeriodById
 );
 
-
-router.post(
-  "/",
-  authenticate,
-  requireAdmin,
-  createPeriod
-);
-
-
 router.post(
   "/",
   authenticate,

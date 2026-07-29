@@ -1,0 +1,48 @@
+.public-page {
+  position: relative;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background-image: url("/img/VN-flag.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.public-page__actions {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+
+  display: flex;
+  gap: 12px;
+}
+
+.public-page__actions button {
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 10px 20px;
+
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.45
+  );
+
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.public-page__actions button:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  );
+}

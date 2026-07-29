@@ -167,19 +167,22 @@ const updatePeriod = async (req, res) => {
 
 
     if (period_name !== undefined) {
-      if (!period_name.trim()) {
+      const cleanPeriodName = period_name.trim();
+      if (!cleanPeriodName) {
         return res.status(400).json({
           success: false,
           message: "period_name không được để trống",
         });
       }
 
-      period.period_name = period_name;
+      period.period_name = cleanPeriodName;
     }
 
 
     if (time_label !== undefined) {
-      period.time_label = time_label;
+      const cleanTimeLabel = time_label?.trim();
+
+      period.time_label = cleanTimeLabel || null;
     }
 
 

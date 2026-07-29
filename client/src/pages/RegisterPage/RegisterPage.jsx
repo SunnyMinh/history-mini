@@ -1,35 +1,64 @@
 import { useState } from "react";
+
+import {
+  useNavigate,
+} from "@tanstack/react-router";
+
 import {
   registerUser,
   loginUser,
 } from "../../services/authApi";
+
+import {
+  saveStoredAuth,
+} from "../../utils/authStorage";
+
 import "./RegisterPage.css";
 
-function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
-  const [username, setUsername] = useState("");
-  const [usermail, setUsermail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] =
+function RegisterPage() {
+  const navigate = useNavigate();
+
+  const [username, setUsername] =
     useState("");
 
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] =
+  const [usermail, setUsermail] =
     useState("");
-  const [loading, setLoading] = useState(false);
+
+  const [password, setPassword] =
+    useState("");
+
+  const [
+    confirmPassword,
+    setConfirmPassword,
+  ] = useState("");
+
+  const [error, setError] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     setError("");
-    setSuccessMessage("");
+
+    const cleanUsername =
+      username.trim();
+
+    const cleanUsermail =
+      usermail.trim();
 
     if (
-      !username.trim() ||
-      !usermail.trim() ||
+      !cleanUsername ||
+      !cleanUsermail ||
       !password ||
       !confirmPassword
     ) {
-      setError("Vui lòng nhập đầy đủ thông tin");
+      setError(
+        "Vui lòng nhập đầy đủ thông tin"
+      );
+
       return;
     }
 
@@ -37,48 +66,72 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
       setError(
         "Mật khẩu phải có ít nhất 6 ký tự"
       );
+
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Mật khẩu xác nhận không khớp");
+      setError(
+        "Mật khẩu xác nhận không khớp"
+      );
+
       return;
     }
 
     try {
-  setLoading(true);
+      setLoading(true);
 
-  // 1. Tạo tài khoản Viewer
-  await registerUser(
-    username.trim(),
-    usermail.trim(),
-    password
-  );
+      // 1. Tạo tài khoản mới
+      await registerUser(
+        cleanUsername,
+        cleanUsermail,
+        password
+      );
 
-  // 2. Tự đăng nhập bằng tài khoản vừa tạo
-  const loginResult = await loginUser(
-    username.trim(),
-    password
-  );
+      // 2. Tự động đăng nhập
+      const loginResult =
+        await loginUser(
+          cleanUsername,
+          password
+        );
 
-  const token = loginResult.data.token;
-  const user = loginResult.data.user;
+      const token =
+        loginResult.data.token;
 
-  // 3. Lưu token và thông tin user
-  localStorage.setItem("token", token);
+      const user =
+        loginResult.data.user;
 
-  localStorage.setItem(
-    "user",
-    JSON.stringify(user)
-  );
+      // 3. Lưu token và user
+      saveStoredAuth({
+        token,
+        user,
+      });
 
-  // 4. Chuyển vào HomePage
-  onRegisterSuccess();
-} catch (error) {
-  setError(error.message);
-} finally {
-  setLoading(false);
-}
+      // 4. Tài khoản mới mặc định là Viewer
+      navigate({
+        to: "/home",
+        replace: true,
+      });
+    } catch (error) {
+      setError(
+        error.message ||
+          "Đăng ký tài khoản thất bại"
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleGoToLogin() {
+    navigate({
+      to: "/login",
+    });
+  }
+
+  function handleGoToPublic() {
+    navigate({
+      to: "/",
+    });
   }
 
   return (
@@ -99,7 +152,9 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
             type="text"
             value={username}
             onChange={(event) =>
-              setUsername(event.target.value)
+              setUsername(
+                event.target.value
+              )
             }
             placeholder="Nhập username"
             autoComplete="username"
@@ -116,7 +171,9 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
             type="email"
             value={usermail}
             onChange={(event) =>
-              setUsermail(event.target.value)
+              setUsermail(
+                event.target.value
+              )
             }
             placeholder="Nhập email"
             autoComplete="email"
@@ -133,7 +190,9 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
             type="password"
             value={password}
             onChange={(event) =>
-              setPassword(event.target.value)
+              setPassword(
+                event.target.value
+              )
             }
             placeholder="Ít nhất 6 ký tự"
             autoComplete="new-password"
@@ -150,7 +209,9 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
             type="password"
             value={confirmPassword}
             onChange={(event) =>
-              setConfirmPassword(event.target.value)
+              setConfirmPassword(
+                event.target.value
+              )
             }
             placeholder="Nhập lại mật khẩu"
             autoComplete="new-password"
@@ -160,12 +221,6 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
         {error && (
           <p className="register-error">
             {error}
-          </p>
-        )}
-
-        {successMessage && (
-          <p className="register-success">
-            {successMessage}
           </p>
         )}
 
@@ -179,10 +234,17 @@ function RegisterPage({ onRegisterSuccess, onGoToLogin }) {
         </button>
 
         <button
-            type="button"
-            onClick={onGoToLogin}
+          type="button"
+          onClick={handleGoToLogin}
         >
-        Quay lại đăng nhập
+          Quay lại đăng nhập
+        </button>
+
+        <button
+          type="button"
+          onClick={handleGoToPublic}
+        >
+          Quay lại trang giới thiệu
         </button>
       </form>
     </main>

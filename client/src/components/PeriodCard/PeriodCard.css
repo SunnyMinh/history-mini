@@ -1,0 +1,131 @@
+.period-card {
+  overflow: hidden;
+
+  background-color: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.period-card--expanded {
+  border-color: #2563eb;
+}
+
+.period-card__header {
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(170px, auto)
+    auto;
+  align-items: center;
+  gap: 20px;
+
+  padding: 16px;
+}
+
+.period-card__toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+  padding: 0;
+
+  color: inherit;
+  text-align: left;
+  font: inherit;
+
+  background: none;
+  border: 0;
+
+  cursor: pointer;
+}
+
+.period-card__arrow {
+  flex-shrink: 0;
+
+  width: 18px;
+
+  font-size: 0.75rem;
+}
+
+.period-card__information {
+  display: grid;
+  gap: 5px;
+
+  min-width: 0;
+}
+
+.period-card__name {
+  overflow: hidden;
+
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.period-card__time {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.period-card__meta {
+  display: grid;
+  gap: 6px;
+
+  color: #4b5563;
+  font-size: 0.85rem;
+}
+
+.period-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.period-card__actions button {
+  padding: 8px 13px;
+
+  font: inherit;
+
+  border: 0;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.period-card__edit-button {
+  color: #1e40af;
+  background-color: #dbeafe;
+}
+
+.period-card__delete-button {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+@media (max-width: 850px) {
+  .period-card__header {
+    grid-template-columns:
+      minmax(0, 1fr)
+      auto;
+  }
+
+  .period-card__meta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .period-card__header {
+    grid-template-columns: 1fr;
+  }
+
+  .period-card__meta {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .period-card__actions {
+    justify-content: flex-end;
+  }
+}
