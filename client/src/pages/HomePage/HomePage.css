@@ -49,3 +49,105 @@
 .history-content {
   min-width: 0;
 }
+
+.home-page {
+  min-height: 100vh;
+  padding-top: 64px;
+}
+
+.home-topbar {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  min-height: 64px;
+  padding: 10px 24px;
+  box-sizing: border-box;
+
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.68
+  );
+
+  border-bottom: 1px solid
+    rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.home-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.home-topbar__admin-button,
+.home-topbar__logout-button {
+  padding: 10px 16px;
+
+  font: inherit;
+  font-weight: 600;
+
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.home-topbar__admin-button {
+  color: white;
+
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+.home-topbar__admin-button:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.home-topbar__logout-button {
+  color: white;
+
+  background-color: rgba(
+    220,
+    38,
+    38,
+    0.9
+  );
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.2);
+}
+
+.home-topbar__logout-button:hover {
+  background-color: #b91c1c;
+}
+
+@media (max-width: 600px) {
+  .home-page {
+    padding-top: 60px;
+  }
+
+  .home-topbar {
+    min-height: 60px;
+    padding: 8px 12px;
+  }
+
+  .home-topbar__actions {
+    gap: 8px;
+  }
+
+  .home-topbar__admin-button,
+  .home-topbar__logout-button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+}

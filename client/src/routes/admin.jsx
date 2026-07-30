@@ -1,12 +1,46 @@
 import {
   createFileRoute,
+  Outlet,
+  redirect,
 } from "@tanstack/react-router";
 
-import AdminPage from
-  "../pages/AdminPage/AdminPage";
+import {
+  getStoredToken,
+  getStoredUser,
+} from "../utils/authStorage";
 
-export const Route = createFileRoute(
-  "/admin"
-)({
-  component: AdminPage,
-});
+export const Route =
+  createFileRoute("/admin")({
+    beforeLoad: () => {
+      const token =
+        getStoredToken();
+
+      const user =
+        getStoredUser();
+
+      if (!token) {
+        throw redirect({
+          to: "/login",
+          replace: true,
+        });
+      }
+
+      const isAdmin =
+        user?.roles?.includes(
+          "Admin"
+        );
+
+      if (!isAdmin) {
+        throw redirect({
+          to: "/home",
+          replace: true,
+        });
+      }
+    },
+
+    component: AdminLayout,
+  });
+
+function AdminLayout() {
+  return <Outlet />;
+}

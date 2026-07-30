@@ -1,12 +1,10 @@
 import {
-  useEffect,
   useState,
 } from "react";
 
-import "./PeriodEditForm.css";
+import "./PeriodCreateForm.css";
 
-function PeriodEditForm({
-  period,
+function PeriodCreateForm({
   onSave,
   onClose,
 }) {
@@ -22,18 +20,6 @@ function PeriodEditForm({
 
   const [error, setError] =
     useState("");
-
-  useEffect(() => {
-    setPeriodName(
-      period.period_name || ""
-    );
-
-    setTimeLabel(
-      period.time_label || ""
-    );
-
-    setError("");
-  }, [period]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -74,29 +60,29 @@ function PeriodEditForm({
 
   return (
     <div
-      className="period-edit-overlay"
+      className="period-create-overlay"
       onClick={handleOverlayClick}
     >
       <div
-        className="period-edit-form"
+        className="period-create-form"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="period-edit-title"
+        aria-labelledby="period-create-title"
       >
-        <div className="period-edit-form__header">
+        <div className="period-create-form__header">
           <div>
-            <p className="period-edit-form__label">
+            <p className="period-create-form__label">
               PERIOD
             </p>
 
-            <h2 id="period-edit-title">
-              Chỉnh sửa thời kỳ
+            <h2 id="period-create-title">
+              Thêm thời kỳ
             </h2>
           </div>
 
           <button
             type="button"
-            className="period-edit-form__close-button"
+            className="period-create-form__close-button"
             onClick={onClose}
             aria-label="Đóng form"
           >
@@ -105,13 +91,13 @@ function PeriodEditForm({
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="period-edit-form__field">
-            <label htmlFor="period-name">
+          <div className="period-create-form__field">
+            <label htmlFor="new-period-name">
               Tên thời kỳ
             </label>
 
             <input
-              id="period-name"
+              id="new-period-name"
               type="text"
               value={periodName}
               onChange={(event) =>
@@ -120,16 +106,17 @@ function PeriodEditForm({
                 )
               }
               placeholder="Nhập tên thời kỳ"
+              autoFocus
             />
           </div>
 
-          <div className="period-edit-form__field">
-            <label htmlFor="period-time">
+          <div className="period-create-form__field">
+            <label htmlFor="new-period-time">
               Thời gian
             </label>
 
             <input
-              id="period-time"
+              id="new-period-time"
               type="text"
               value={timeLabel}
               onChange={(event) =>
@@ -142,15 +129,15 @@ function PeriodEditForm({
           </div>
 
           {error && (
-            <p className="period-edit-form__error">
+            <p className="period-create-form__error">
               {error}
             </p>
           )}
 
-          <div className="period-edit-form__actions">
+          <div className="period-create-form__actions">
             <button
               type="button"
-              className="period-edit-form__cancel-button"
+              className="period-create-form__cancel-button"
               onClick={onClose}
             >
               Hủy
@@ -158,9 +145,9 @@ function PeriodEditForm({
 
             <button
               type="submit"
-              className="period-edit-form__save-button"
+              className="period-create-form__save-button"
             >
-              Lưu thay đổi
+              Thêm thời kỳ
             </button>
           </div>
         </form>
@@ -169,4 +156,4 @@ function PeriodEditForm({
   );
 }
 
-export default PeriodEditForm;
+export default PeriodCreateForm;

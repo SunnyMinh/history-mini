@@ -17,12 +17,19 @@ import {
 
 import {
   removeStoredAuth,
+  getStoredUser,
 } from "../../utils/authStorage";
 
 import "./HomePage.css";
 
 function HomePage() {
   const navigate = useNavigate();
+
+  const user = getStoredUser();
+
+  const isAdmin = user?.roles?.includes(
+    "Admin"
+  );
 
   const [periods, setPeriods] =
     useState([]);
@@ -94,6 +101,12 @@ function HomePage() {
     });
   }
 
+  function handleGoToAdmin() {
+    navigate({
+      to: "/admin",
+    });
+  }
+
   if (loading) {
     return (
       <p>
@@ -107,20 +120,34 @@ function HomePage() {
   }
 
   return (
-    <main>
-      <section className="hero">
+    <main className="home-page">
+  <header className="home-topbar">
+    <div className="home-topbar__actions">
+      {isAdmin && (
         <button
           type="button"
-          className="home-logout-button"
-          onClick={handleLogout}
+          className="home-topbar__admin-button"
+          onClick={handleGoToAdmin}
         >
-          Đăng xuất
+          Quay lại trang quản trị
         </button>
+      )}
 
-        <h1 className="hero__title">
-          Các giai đoạn của Việt Nam
-        </h1>
-      </section>
+      <button
+        type="button"
+        className="home-topbar__logout-button"
+        onClick={handleLogout}
+      >
+        Đăng xuất
+      </button>
+    </div>
+  </header>
+
+  <section className="hero">
+    <h1 className="hero__title">
+      Các giai đoạn của Việt Nam
+    </h1>
+  </section>
 
       <section className="history-container">
         <aside className="history-sidebar">

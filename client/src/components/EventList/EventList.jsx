@@ -42,18 +42,15 @@ function EventList({
 
             <tbody>
               {events.map(
-                (historyEvent) => (
+                (historyEvent, index) => (
                   <EventRow
                     key={historyEvent.id}
                     historyEvent={
                       historyEvent
                     }
-                    onEdit={
-                      onEditEvent
-                    }
-                    onDelete={
-                      onDeleteEvent
-                    }
+                    orderNumber={index + 1}
+                    onEdit={onEditEvent}
+                    onDelete={onDeleteEvent}
                   />
                 )
               )}

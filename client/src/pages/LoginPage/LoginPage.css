@@ -87,3 +87,36 @@
 .go-register-button:hover {
   background-color: #eeeeee;
 }
+
+.go-public-button,
+.go-register-button {
+  position: fixed;
+  top: 20px;
+  z-index: 100;
+
+  width: auto;
+  padding: 10px 20px;
+
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+
+  background-color: white;
+  border: 1px solid #333333;
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.go-public-button {
+  left: 24px;
+}
+
+.go-register-button {
+  right: 24px;
+}
+
+.go-public-button:hover,
+.go-register-button:hover {
+  background-color: #eeeeee;
+}

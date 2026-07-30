@@ -10,6 +10,10 @@ import {
 import {
   getPeriods,
   getEvents,
+  createPeriod,
+  updatePeriod,
+  deletePeriod,
+  deleteEvent,
 } from "../../services/historyApi";
 
 import {
@@ -22,6 +26,9 @@ import PeriodList from
 
 import PeriodEditForm from
   "../../components/PeriodEditForm/PeriodEditForm";
+
+import PeriodCreateForm from
+  "../../components/PeriodCreateForm/PeriodCreateForm";
 
 import "./AdminPage.css";
 
@@ -42,9 +49,14 @@ function AdminPage() {
   ] = useState(null);
 
   const [
+  isCreatingPeriod,
+  setIsCreatingPeriod,
+  ] = useState(false);
+
+  const [
     editingPeriod,
     setEditingPeriod,
-] = useState(null);
+  ] = useState(null);
 
   const [loading, setLoading] =
     useState(true);
@@ -91,7 +103,9 @@ function AdminPage() {
     loadAdminData();
   }, []);
 
-  function handleTogglePeriod(periodId) {
+  function handleTogglePeriod(
+    periodId
+  ) {
     setExpandedPeriodId(
       expandedPeriodId === periodId
         ? null
@@ -115,7 +129,11 @@ function AdminPage() {
   }
 
   function handleAddPeriod() {
-    console.log("Thêm thời kỳ");
+    setIsCreatingPeriod(true);
+  }
+
+  function handleClosePeriodCreate() {
+  setIsCreatingPeriod(false);
   }
 
   function handleEditPeriod(period) {
@@ -126,37 +144,220 @@ function AdminPage() {
     setEditingPeriod(null);
   }
 
-  function handleDeletePeriod(period) {
-    console.log(
-      "Xóa thời kỳ:",
-      period
+  async function handleCreatePeriod(
+  periodData
+) {
+  try {
+    setError("");
+
+    const response =
+      await createPeriod(
+        periodData
+      );
+
+    const createdPeriod =
+      response.data;
+
+    setPeriods((currentPeriods) => [
+      ...currentPeriods,
+      createdPeriod,
+    ]);
+
+    // Tạo thành công thì đóng modal
+    setIsCreatingPeriod(false);
+  } catch (error) {
+    console.error(
+      "Create period error:",
+      error
     );
+
+    const errorMessage =
+      error.message ||
+      "Không thể thêm thời kỳ";
+
+    setError(errorMessage);
+
+    window.alert(errorMessage);
+  }
+}
+
+  async function handleSavePeriod(
+    periodData
+  ) {
+    // if (!editingPeriod) {
+    //   return;
+    // }
+
+    try {
+      setError("");
+
+      const response =
+        await updatePeriod(
+          editingPeriod.id,
+          periodData
+        );
+
+      const updatedPeriod =
+        response.data;
+
+      setPeriods((currentPeriods) =>
+        currentPeriods.map((period) =>
+          String(period.id) ===
+          String(updatedPeriod.id)
+            ? {
+                ...period,
+                ...updatedPeriod,
+              }
+            : period
+        )
+      );
+
+      setEditingPeriod(null);
+    } catch (error) {
+      console.error(
+        "Update period error:",
+        error
+      );
+
+      setError(
+        error.message ||
+          "Không thể cập nhật thời kỳ"
+      );
+    }
   }
 
-  function handleAddEvent(period) {
-    console.log(
-      "Thêm sự kiện cho thời kỳ:",
-      period
+  async function handleDeletePeriod(
+  period
+) {
+  const confirmed =
+    window.confirm(
+      `Bạn có chắc muốn xóa thời kỳ "${period.period_name}" không?\n\nToàn bộ sự kiện thuộc thời kỳ này cũng sẽ bị xóa và không thể khôi phục.`
     );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    setError("");
+
+    await deletePeriod(period.id);
+
+    setPeriods((currentPeriods) =>
+      currentPeriods.filter(
+        (currentPeriod) =>
+          String(currentPeriod.id) !==
+          String(period.id)
+      )
+    );
+
+    setEvents((currentEvents) =>
+      currentEvents.filter(
+        (historyEvent) => {
+          const eventPeriodId =
+            historyEvent.period_id ??
+            historyEvent.period?.id;
+
+          return (
+            String(eventPeriodId) !==
+            String(period.id)
+          );
+        }
+      )
+    );
+
+    if (
+      String(expandedPeriodId) ===
+      String(period.id)
+    ) {
+      setExpandedPeriodId(null);
+    }
+
+    window.alert(
+      "Đã xóa thời kỳ và toàn bộ sự kiện thuộc thời kỳ"
+    );
+  } catch (error) {
+    console.error(
+      "Delete period error:",
+      error
+    );
+
+    setError(
+      error.message ||
+        "Không thể xóa thời kỳ"
+    );
+  }
+}
+
+  function handleAddEvent(period) {
+    navigate({
+      to: "/admin/events/new",
+
+      search: {
+      periodId: period.id,
+      },
+    });
   }
 
   function handleEditEvent(
     historyEvent
   ) {
-    console.log(
-      "Sửa sự kiện:",
-      historyEvent
-    );
+    navigate({
+      to: `/admin/events/$eventId/edit`,
+
+      params: {
+        eventId: String(
+          historyEvent.id
+        ),
+      },
+    });
   }
 
-  function handleDeleteEvent(
-    historyEvent
-  ) {
-    console.log(
-      "Xóa sự kiện:",
-      historyEvent
+  async function handleDeleteEvent(
+  historyEvent
+) {
+  const confirmed =
+    window.confirm(
+      `Bạn có chắc muốn xóa sự kiện "${historyEvent.event_name}" không?\n\nDữ liệu đã xóa sẽ không thể khôi phục.`
     );
+
+  if (!confirmed) {
+    return;
   }
+
+  try {
+    setError("");
+
+    await deleteEvent(
+      historyEvent.id
+    );
+
+    setEvents((currentEvents) =>
+      currentEvents.filter(
+        (currentEvent) =>
+          String(currentEvent.id) !==
+          String(historyEvent.id)
+      )
+    );
+
+    window.alert(
+      "Xóa sự kiện thành công"
+    );
+  } catch (error) {
+    console.error(
+      "Delete event error:",
+      error
+    );
+
+    const errorMessage =
+      error.message ||
+      "Không thể xóa sự kiện";
+
+    setError(errorMessage);
+
+    window.alert(errorMessage);
+  }
+}
 
   if (loading) {
     return (
@@ -261,6 +462,23 @@ function AdminPage() {
           }
         />
       </div>
+      
+      {isCreatingPeriod && (
+        <PeriodCreateForm
+          onSave={handleCreatePeriod}
+          onClose={handleClosePeriodCreate}
+        />
+      )}
+
+      {editingPeriod && (
+        <PeriodEditForm
+          period={editingPeriod}
+          onSave={handleSavePeriod}
+          onClose={
+            handleClosePeriodEdit
+          }
+        />
+      )}
     </main>
   );
 }

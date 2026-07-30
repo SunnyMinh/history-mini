@@ -2,13 +2,14 @@ import "./EventRow.css";
 
 function EventRow({
   historyEvent,
+  orderNumber,
   onEdit,
   onDelete,
 }) {
   return (
     <tr className="event-row">
       <td>
-        {historyEvent.id}
+        {orderNumber}
       </td>
 
       <td>

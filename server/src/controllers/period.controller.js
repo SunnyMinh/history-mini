@@ -1,6 +1,9 @@
 const {
   Period,
+  Event,
   User,
+  sequelize,
+
 } = require("../models");
 
 
@@ -209,51 +212,79 @@ const updatePeriod = async (req, res) => {
 };
 
 
-const deletePeriod = async (req, res) => {
+const deletePeriod = async (
+  req,
+  res
+) => {
+  let transaction;
+
   try {
     const { id } = req.params;
 
-    const period = await Period.findByPk(id);
+    transaction =
+      await sequelize.transaction();
 
+
+    const period =
+      await Period.findByPk(id, {
+        transaction,
+      });
 
     if (!period) {
+      await transaction.rollback();
+
       return res.status(404).json({
         success: false,
-        message: "Không tìm thấy period",
+        message:
+          "Không tìm thấy period",
       });
     }
 
+    const deletedEventCount =
+      await Event.destroy({
+        where: {
+          period_id: id,
+        },
 
-    await period.destroy();
+        transaction,
+      });
 
+    await period.destroy({
+      transaction,
+    });
+
+    await transaction.commit();
 
     return res.status(200).json({
       success: true,
-      message: "Xóa period thành công",
-    });
+      message:
+        "Xóa period và các event thuộc period thành công",
 
+      data: {
+        deleted_period_id:
+          period.id,
+
+        deleted_event_count:
+          deletedEventCount,
+      },
+    });
   } catch (error) {
+    if (
+      transaction &&
+      !transaction.finished
+    ) {
+      await transaction.rollback();
+    }
+
     console.error(
       "Delete period error:",
       error
     );
 
-
-    if (
-      error.name ===
-      "SequelizeForeignKeyConstraintError"
-    ) {
-      return res.status(409).json({
-        success: false,
-        message:
-          "Không thể xóa period vì đang có event thuộc period này",
-      });
-    }
-
-
     return res.status(500).json({
       success: false,
-      message: "Lỗi server",
+      message:
+        "Không thể xóa period",
     });
   }
 };

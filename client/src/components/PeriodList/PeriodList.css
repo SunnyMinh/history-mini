@@ -69,3 +69,22 @@
     flex-direction: column;
   }
 }
+
+/* Button interactions */
+.period-list__add-button {
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.period-list__add-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.3);
+}
+
+.period-list__add-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}

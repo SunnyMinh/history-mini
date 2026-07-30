@@ -129,3 +129,46 @@
     justify-content: flex-end;
   }
 }
+/* Button interactions */
+.period-card__toggle,
+.period-card__actions button {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.period-card__toggle:hover .period-card__name {
+  color: #2563eb;
+}
+
+.period-card__toggle:hover .period-card__arrow {
+  color: #2563eb;
+  transform: translateX(2px);
+}
+
+.period-card__arrow {
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.period-card__edit-button:hover {
+  color: #1e3a8a;
+  background-color: #bfdbfe;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 9px rgba(30, 64, 175, 0.18);
+}
+
+.period-card__delete-button:hover {
+  color: #7f1d1d;
+  background-color: #fecaca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 9px rgba(153, 27, 27, 0.18);
+}
+
+.period-card__actions button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
