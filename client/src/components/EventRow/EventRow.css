@@ -38,7 +38,6 @@
   background-color: #fee2e2;
 }
 
-/* Button interactions */
 .event-row__actions button {
   transition:
     background-color 0.2s ease,

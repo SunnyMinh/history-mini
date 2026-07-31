@@ -16,6 +16,12 @@ const {
   requireAdmin,
 } = require("../middleware/role.middleware");
 
+const {
+  uploadEventImage,
+} = require(
+  "../middleware/upload.middleware"
+);
+
 
 const router = express.Router();
 
@@ -39,15 +45,19 @@ router.post(
   "/",
   authenticate,
   requireAdmin,
+  uploadEventImage.single(
+    "image"
+  ),
   createEvent
 );
-
-
 
 router.put(
   "/:id",
   authenticate,
   requireAdmin,
+  uploadEventImage.single(
+    "image"
+  ),
   updateEvent
 );
 

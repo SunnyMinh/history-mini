@@ -16,6 +16,9 @@ import {
 
 import "./EventFormPage.css";
 
+const DEFAULT_EVENT_IMAGE =
+  "/img/up_load.jpg";
+
 function EventFormPage({
   mode,
   periodId,
@@ -34,8 +37,15 @@ function EventFormPage({
     setDescription,
   ] = useState("");
 
-  const [imageUrl, setImageUrl] =
+  const [currentImageUrl, setCurrentImageUrl] =
     useState("");
+
+  const [selectedImage, setSelectedImage] =
+    useState(null);
+
+  const [imagePreview, setImagePreview] =
+    useState(DEFAULT_EVENT_IMAGE);
+
 
   const [
     currentPeriodId,
@@ -86,10 +96,19 @@ function EventFormPage({
               ""
           );
 
-          setImageUrl(
-            historyEvent.image_url ||
-              ""
+          const existingImageUrl =
+            historyEvent.image_url || "";
+
+          setCurrentImageUrl(
+            existingImageUrl
           );
+
+          setImagePreview(
+            existingImageUrl ||
+              DEFAULT_EVENT_IMAGE
+          );
+
+          // setImageUrl( historyEvent.image_url || "");
 
           const foundPeriodId =
             historyEvent.period_id ??
@@ -146,10 +165,75 @@ function EventFormPage({
     periodId,
   ]);
 
+  useEffect(() => {
+  return () => {
+    if (
+      imagePreview.startsWith(
+        "blob:"
+      )
+    ) {
+      URL.revokeObjectURL(
+        imagePreview
+      );
+    }
+  };
+  }, [imagePreview]);
+
   function handleBack() {
     navigate({
       to: "/admin",
     });
+  }
+  function handleImageChange(event) {
+  const file =
+    event.target.files?.[0];
+
+  if (!file) {
+    return;
+  }
+
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+  ];
+
+  if (
+    !allowedTypes.includes(
+      file.type
+    )
+  ) {
+    setError(
+      "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP"
+    );
+
+    event.target.value = "";
+    return;
+  }
+
+  const maxFileSize =
+    5 * 1024 * 1024;
+
+  if (
+    file.size > maxFileSize
+  ) {
+    setError(
+      "Ảnh không được vượt quá 5 MB"
+    );
+
+    event.target.value = "";
+    return;
+  }
+
+  setError("");
+  setSelectedImage(file);
+
+  const previewUrl =
+    URL.createObjectURL(file);
+
+  setImagePreview(
+    previewUrl
+  );
   }
 
   async function handleSubmit(
@@ -168,9 +252,6 @@ function EventFormPage({
     const cleanDescription =
       description.trim();
 
-    const cleanImageUrl =
-      imageUrl.trim();
-
     if (!cleanEventName) {
       setError(
         "Vui lòng nhập tên sự kiện"
@@ -180,19 +261,30 @@ function EventFormPage({
     }
 
     try {
-      const eventData = {
-        event_name:
-          cleanEventName,
+      const eventData =
+        new FormData();
 
-        time_label:
-          cleanTimeLabel,
+      eventData.append(
+        "event_name",
+        cleanEventName
+      );
 
-        description:
-          cleanDescription,
+      eventData.append(
+        "time_label",
+        cleanTimeLabel
+      );
 
-        image_url:
-          cleanImageUrl,
-      };
+      eventData.append(
+        "description",
+        cleanDescription
+      );
+
+      if (selectedImage) {
+        eventData.append(
+          "image",
+          selectedImage
+        );
+      }
 
       if (isEditMode) {
         await updateEvent(
@@ -200,12 +292,14 @@ function EventFormPage({
           eventData
         );
       } else {
-        await createEvent({
-          period_id:
-            currentPeriodId,
+        eventData.append(
+          "period_id",
+          currentPeriodId
+        );
 
-          ...eventData,
-        });
+        await createEvent(
+          eventData
+        );
       }
 
       navigate({
@@ -336,20 +430,54 @@ function EventFormPage({
 
           <div className="event-form__field">
             <label htmlFor="event-image">
-              Đường dẫn ảnh
+              Ảnh sự kiện
             </label>
 
             <input
               id="event-image"
-              type="text"
-              value={imageUrl}
-              onChange={(event) =>
-                setImageUrl(
-                  event.target.value
-                )
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={
+                handleImageChange
               }
-              placeholder="/uploads/events/ten-anh.jpg"
             />
+
+            <p className="event-form__image-note">
+              Chấp nhận JPG, PNG hoặc WebP.
+              Kích thước tối đa 5 MB.
+            </p>
+
+            <div className="event-form__image-preview">
+              <img
+                src={imagePreview}
+                alt={
+                  eventName.trim() ||
+                  "Ảnh sự kiện"
+                }
+              onError={(event) => {
+                event.currentTarget.src =
+                  DEFAULT_EVENT_IMAGE;
+              }}
+              />
+            </div>
+
+            {isEditMode &&
+              currentImageUrl &&
+              !selectedImage && (
+                <p className="event-form__image-status">
+                  Đang sử dụng ảnh hiện tại.
+                  Chọn ảnh mới để thay thế.
+                </p>
+              )}
+
+            {selectedImage && (
+              <p className="event-form__image-status">
+                Ảnh mới:{" "}
+                <strong>
+                  {selectedImage.name}
+                </strong>
+              </p>
+            )}
           </div>
 
           <div className="event-form__actions">

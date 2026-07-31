@@ -14,13 +14,13 @@ function EventText({ events }) {
             <p>{event.time_label}</p>
           )}
 
-          {event.image_url && (
+          
             <img
-              src={event.image_url}
+              src={event.image_url || "public/img/Placeholder_view.png"}
               alt={event.event_name}
               className="thunho"
             />
-          )}
+          
 
           <p>{event.description}</p>
         </Fragment>
