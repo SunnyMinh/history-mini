@@ -135,19 +135,25 @@ function RegisterPage() {
   }
 
   return (
-    <main className="register-page">
+    <main className="min-h-screen flex items-center justify-center p-6 bg-[#f4f4f4]">
       <form
-        className="register-form"
+        className="w-full max-w-105 p-8 bg-white rounded-[10px] shadow-lg"
         onSubmit={handleSubmit}
       >
-        <h1>Đăng ký tài khoản</h1>
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Đăng ký tài khoản
+        </h1>
 
-        <div className="register-field">
-          <label htmlFor="register-username">
+        <div className="flex flex-col mb-4.5 gap-2">
+          <label 
+            htmlFor="register-username"
+            className="font-semibold"
+          >
             Tên đăng nhập
           </label>
 
           <input
+            className="w-full p-3 text-base border border-[#cccccc] rounded-md focus:outline-2 focus:outline-[#000000]"
             id="register-username"
             type="text"
             value={username}
@@ -161,12 +167,13 @@ function RegisterPage() {
           />
         </div>
 
-        <div className="register-field">
-          <label htmlFor="register-email">
+        <div className="flex flex-col mb-4.5 gap-2">
+          <label className="font-semibold" htmlFor="register-email">
             Email
           </label>
 
           <input
+            className="w-full p-3 text-base border border-[#cccccc] rounded-md focus:outline-2 focus:outline-[#000000]"
             id="register-email"
             type="email"
             value={usermail}
@@ -180,12 +187,13 @@ function RegisterPage() {
           />
         </div>
 
-        <div className="register-field">
-          <label htmlFor="register-password">
+        <div className="flex flex-col mb-4.5 gap-2">
+          <label className="font-semibold" htmlFor="register-password">
             Mật khẩu
           </label>
 
           <input
+            className="w-full p-3 text-base border border-[#cccccc] rounded-md focus:outline-2 focus:outline-[#000000]"
             id="register-password"
             type="password"
             value={password}
@@ -199,12 +207,13 @@ function RegisterPage() {
           />
         </div>
 
-        <div className="register-field">
-          <label htmlFor="confirm-password">
+        <div className="flex flex-col mb-4.5 gap-2">
+          <label className="font-semibold"  htmlFor="confirm-password">
             Xác nhận mật khẩu
           </label>
 
           <input
+            className="w-full p-3 text-base border border-[#cccccc] rounded-md focus:outline-2 focus:outline-[#000000]"
             id="confirm-password"
             type="password"
             value={confirmPassword}
@@ -219,12 +228,13 @@ function RegisterPage() {
         </div>
 
         {error && (
-          <p className="register-error">
+          <p className="text-red-700 mb-4 text-center">
             {error}
           </p>
         )}
 
         <button
+          className="w-full p-3 text-base font-semibold cursor-pointer bg-gray-800 text-white hover:bg-gray-600 mb-1 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           type="submit"
           disabled={loading}
         >
@@ -234,6 +244,7 @@ function RegisterPage() {
         </button>
 
         <button
+          className="w-full p-3 text-base font-semibold cursor-pointer bg-gray-800 text-white hover:bg-gray-600 mb-1 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           type="button"
           onClick={handleGoToLogin}
         >
@@ -241,6 +252,7 @@ function RegisterPage() {
         </button>
 
         <button
+          className="w-full p-3 text-base font-semibold cursor-pointer bg-gray-800 text-white hover:bg-gray-600 transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           type="button"
           onClick={handleGoToPublic}
         >

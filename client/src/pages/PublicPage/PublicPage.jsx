@@ -49,9 +49,10 @@ function PublicPage() {
   }
 
   return (
-    <main className="public-page">
-      <div className="public-page__actions">
+    <main className=" w-full min-h-screen bg-[url('/img/VN-flag.png')] bg-center bg-no-repeat bg-cover">
+      <div className="absolute top-7.5 right-7.5 flex gap-3">
         <button
+          className="w-32 border-2 border-white rounded-lg px-5 py-2.5 bg-black/45 text-white text-base font-bold cursor-pointer"
           type="button"
           onClick={handleGoToLogin}
         >
@@ -59,6 +60,7 @@ function PublicPage() {
         </button>
 
         <button
+          className="w-32 border-2 border-white rounded-lg px-5 py-2.5 bg-black/45 text-white text-base font-bold cursor-pointer"
           type="button"
           onClick={handleGoToRegister}
         >

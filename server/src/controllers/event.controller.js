@@ -324,8 +324,8 @@ const updateEvent = async (
         });
       }
 
-      event.period_id =
-        period_id;
+      // event.period_id =
+      //   period_id;
     }
 
     if (

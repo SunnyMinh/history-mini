@@ -37,9 +37,6 @@ function EventFormPage({
     setDescription,
   ] = useState("");
 
-  const [currentImageUrl, setCurrentImageUrl] =
-    useState("");
-
   const [selectedImage, setSelectedImage] =
     useState(null);
 
@@ -98,10 +95,6 @@ function EventFormPage({
 
           const existingImageUrl =
             historyEvent.image_url || "";
-
-          setCurrentImageUrl(
-            existingImageUrl
-          );
 
           setImagePreview(
             existingImageUrl ||
@@ -185,55 +178,55 @@ function EventFormPage({
     });
   }
   function handleImageChange(event) {
-  const file =
-    event.target.files?.[0];
+    const file =
+      event.target.files?.[0];
 
-  if (!file) {
-    return;
-  }
+    if (!file) {
+      return;
+    }
 
-  const allowedTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/webp",
-  ];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+    ];
 
-  if (
-    !allowedTypes.includes(
-      file.type
-    )
-  ) {
-    setError(
-      "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP"
+    if (
+      !allowedTypes.includes(
+        file.type
+      )
+    ) {
+      setError(
+        "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP"
+      );
+
+      event.target.value = "";
+      return;
+    }
+
+    const maxFileSize =
+      5 * 1024 * 1024;
+
+    if (
+      file.size > maxFileSize
+    ) {
+      setError(
+        "Ảnh không được vượt quá 5 MB"
+      );
+
+      event.target.value = "";
+      return;
+    }
+
+    setError("");
+    setSelectedImage(file);
+
+    const previewUrl =
+      URL.createObjectURL(file);
+
+    setImagePreview(
+      previewUrl
     );
-
-    event.target.value = "";
-    return;
-  }
-
-  const maxFileSize =
-    5 * 1024 * 1024;
-
-  if (
-    file.size > maxFileSize
-  ) {
-    setError(
-      "Ảnh không được vượt quá 5 MB"
-    );
-
-    event.target.value = "";
-    return;
-  }
-
-  setError("");
-  setSelectedImage(file);
-
-  const previewUrl =
-    URL.createObjectURL(file);
-
-  setImagePreview(
-    previewUrl
-  );
   }
 
   async function handleSubmit(
@@ -454,15 +447,14 @@ function EventFormPage({
                   eventName.trim() ||
                   "Ảnh sự kiện"
                 }
-              onError={(event) => {
-                event.currentTarget.src =
-                  DEFAULT_EVENT_IMAGE;
-              }}
+                onError={(event) => {
+                  event.currentTarget.src =
+                    DEFAULT_EVENT_IMAGE;
+                }}
               />
             </div>
 
             {isEditMode &&
-              currentImageUrl &&
               !selectedImage && (
                 <p className="event-form__image-status">
                   Đang sử dụng ảnh hiện tại.

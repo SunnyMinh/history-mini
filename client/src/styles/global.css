@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 * {
   box-sizing: border-box;
 }
@@ -16,7 +18,7 @@ body {
   color: #222222;
 }
 
-button,
+/* button, */
 input,
 textarea,
 select {

@@ -361,8 +361,8 @@ function AdminPage() {
 
   if (loading) {
     return (
-      <main className="admin-page">
-        <p className="admin-page__state">
+      <main className="min-h-screen text-[#1f2937] bg-[#f4f6f8]">
+        <p className="grid place-items-center min-h-screen m-0">
           Đang tải dữ liệu...
         </p>
       </main>
@@ -370,18 +370,18 @@ function AdminPage() {
   }
 
   return (
-    <main className="admin-page">
-      <header className="admin-header">
+    <main className="min-h-screen text-[#1f2937] bg-[#f4f6f8]">
+      <header className="flex items-center justify-between gap-6 px-10 py-6 text-white bg-[#1f2937]">
         <div>
-          <p className="admin-header__label">
+          <p className="mb-1 text-[0.75rem] font-bold tracking-[2px]">
             HISTORY WIKI
           </p>
 
-          <h1 className="admin-header__title">
+          <h1 className="text-[1.8rem]">
             Trang quản trị
           </h1>
 
-          <p className="admin-header__user">
+          <p className="mt-2 text-[#d1d5db]">
             Xin chào,{" "}
             <strong>
               {user?.username || "Admin"}
@@ -389,10 +389,10 @@ function AdminPage() {
           </p>
         </div>
 
-        <div className="admin-header__actions">
+        <div className="flex flex-wrap gap-3">
           <button
             type="button"
-            className="admin-header__home-button"
+            className="rounded-md border-0 px-4 py-2.5 [font:inherit] cursor-pointer text-[#1f2937] bg-white transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#e5e7eb] hover:box:shadow-[0_5px_12px_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
             onClick={handleGoToHome}
           >
             Xem trang lịch sử
@@ -400,7 +400,7 @@ function AdminPage() {
 
           <button
             type="button"
-            className="admin-header__logout-button"
+            className="rounded-md border-0 px-4 py-2.5 [font:inherit] cursor-pointer text-white bg-[#dc2626]  [transition:background-color_0.2s_ease,color_0.2s_ease,transform_0.2s_ease,box-shadow_0.2s_ease] hover:-translate-y-0.5 hover:box:shadow-[0_5px_12px_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
             onClick={handleLogout}
           >
             Đăng xuất
@@ -408,26 +408,26 @@ function AdminPage() {
         </div>
       </header>
 
-      <div className="admin-content">
+      <div className="grid gap-6  w-[calc(100%-40px)] max-w-[1200px] mx-auto pt-8 pb-12">
         {error && (
-          <p className="admin-page__error">
+          <p className="m-0 px-4 py-3.5 text-[#991b1b] bg-[#fee2e2] border border-solid border-[#fecaca] rounded-lg">
             {error}
           </p>
         )}
 
-        <section className="admin-summary">
-          <article className="summary-card">
-            <p>Tổng số thời kỳ</p>
+        <section className="grid grid-cols-2 gap-5">
+          <article className="p-6 bg-white border border-solid border-[#e5e7eb] rounded-[10px]">
+            <p className="mb-2.5 text-[#6b7280]">Tổng số thời kỳ</p>
 
-            <strong>
+            <strong className="text-[2rem]">
               {periods.length}
             </strong>
           </article>
 
-          <article className="summary-card">
-            <p>Tổng số sự kiện</p>
+          <article className="p-6 bg-white border border-solid border-[#e5e7eb] rounded-[10px]">
+            <p className="mb-2.5 text-[#6b7280]">Tổng số sự kiện</p>
 
-            <strong>
+            <strong className="text-[2rem]">
               {events.length}
             </strong>
           </article>

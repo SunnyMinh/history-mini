@@ -64,26 +64,6 @@
   text-align: center;
 }
 
-.go-register-button {
-  position: fixed;
-  top: 20px;
-  right: 24px;
-  z-index: 100;
-
-  padding: 10px 20px;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  background-color: white;
-  color: #333333;
-
-  border: 1px solid #333333;
-  border-radius: 6px;
-
-  cursor: pointer;
-}
-
 .go-register-button:hover {
   background-color: #eeeeee;
 }
